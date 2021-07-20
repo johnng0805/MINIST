@@ -1,0 +1,16 @@
+{
+    "name": "thien/minist",
+    "description": "e-cq internship",
+    "authors": [
+        {
+            "name": "johnng0805",
+            "email": "johnng0805@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "require": {}
+}
