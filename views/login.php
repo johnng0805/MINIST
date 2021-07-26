@@ -1,7 +1,7 @@
 <div class="login__container">
     <div class="login__wrapper">
         <div class="login__title">
-            <h1>Minist</h1>
+            <a href="/">Minist</a>
             <h4>Login</h4>
         </div>
         <div class="login__input__container">

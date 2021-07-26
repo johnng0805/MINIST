@@ -2,6 +2,8 @@
 
 namespace app\core\models;
 
+use app\core\Application;
+
 abstract class Model
 {
     public const RULE_REQUIRED = "required";
@@ -55,6 +57,21 @@ abstract class Model
                 if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) {
                     $this->addErrorForRule($attribute, self::RULE_MATCH, $rule);
                 }
+
+                if ($ruleName === self::RULE_UNIQUE) {
+                    $className = $rule['class'];
+                    $uniqueAttr = $rule['attribute'] ?? $attribute;
+                    $tableName = $className::tableName();
+
+                    $statement = Application::$app->db->prepare("SELECT * FROM $tableName WHERE $uniqueAttr = :attr");
+                    $statement->bindValue(":attr", $value);
+                    $statement->execute();
+
+                    $record = $statement->fetchObject();
+                    if ($record) {
+                        $this->addErrorForRule($attribute, self::RULE_UNIQUE, ['field' => $attribute]);
+                    }
+                }
             }
         }
 
@@ -90,5 +107,10 @@ abstract class Model
     public function getFirstError($attribute)
     {
         return $this->errors[$attribute][0] ?? false;
+    }
+
+    public function labels(): array
+    {
+        return [];
     }
 }

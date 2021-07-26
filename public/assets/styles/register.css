@@ -31,10 +31,13 @@ body {
     text-align: center;
 }
 
-.register__title h1 {
+.register__title a {
     letter-spacing: 3px;
     text-transform: uppercase;
     font-weight: bold;
+    text-decoration: none;
+    color: rgb(28, 27, 27);
+    font-size: 42px;
 }
 
 .register__title h4 {
@@ -49,7 +52,7 @@ body {
 .input__area {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
-    padding: 1.4rem 0 0 0;
+    padding: 1.4rem 0 1.2rem 0;
 }
 
 .register__action__container {
@@ -98,6 +101,12 @@ body {
 
 .form-control, .form-select {
     border-color: gray;
+}
+
+.invalid__feedback {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
 }
 
 @media screen and (max-width: 768px) {

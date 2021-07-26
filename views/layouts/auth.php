@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="./assets/styles/main.css">
     <link rel="stylesheet" href="./assets/styles/register.css">
     <link rel="stylesheet" href="./assets/styles/login.css">
-    <title>Auth</title>
+    <title>MINIST</title>
 </head>
 
 <body>
