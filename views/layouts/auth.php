@@ -2,7 +2,7 @@
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -19,51 +19,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/styles/main.css">
+    <link rel="stylesheet" href="./assets/styles/register.css">
+    <link rel="stylesheet" href="./assets/styles/login.css">
+    <title>Auth</title>
 </head>
 
 <body>
-    <div>
-        <!--Navbar Begin-->
-        <nav>
-            <div class="logo">
-                <h4>Minist</h4>
-            </div>
-            <ul class="nav-links">
-                <li>
-                    <a href="#">Home</a>
-                </li>
-                <li>
-                    <a href="#">Cart</a>
-                </li>
-                <li>
-                    <a href="#">Categories</a>
-                </li>
-                <li>
-                    <div class="dropdown">
-                        <button class="dropdownBtn">
-                            User <i class="fa fa-caret-down"></i>
-                        </button>
-                        <div class="dropdown-links">
-                            <a href="/login">Login</a>
-                            <a href="/register">Register</a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-            <div class="burger">
-                <div class="line1"></div>
-                <div class="line2"></div>
-                <div class="line3"></div>
-            </div>
-        </nav>
-        <!--Navbar End-->
-        {{content}}
-        <footer>
-            <div class="footer__bottom">
-                <h5>Designed by @johnng0805</h5>
-            </div>
-        </footer>
-    </div>
+    {{content}}
 </body>
 
 </html>

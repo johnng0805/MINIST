@@ -6,10 +6,12 @@ class Router
 {
     protected array $routes = [];
     public Request $request;
+    public Response $response;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
+        $this->response = $response;
     }
 
     public function get($path, $callback)
@@ -46,6 +48,6 @@ class Router
             $callback[0] = $controller;
         }
 
-        return call_user_func($callback, $this->request);
+        return call_user_func($callback, $this->request, $this->response);
     }
 }
