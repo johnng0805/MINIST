@@ -8,7 +8,13 @@ use app\controllers\AuthController;
 use app\controllers\SiteController;
 use app\core\Application;
 
-$config = [];
+$config = [
+    'db' => [
+        'dsn' => $_ENV['DB_DSN'],
+        'user' => $_ENV['DB_USER'],
+        'password' => $_ENV['DB_PASSWORD'],
+    ]
+];
 
 $app = new Application(dirname(__DIR__), $config);
 

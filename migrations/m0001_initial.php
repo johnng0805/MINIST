@@ -11,7 +11,7 @@ class m0001_initial
                 last_name VARCHAR(255) NOT NULL,
                 email VARCHAR(255) NOT NULL,
                 gender ENUM('Male', 'Female', 'Other'),
-                password VARCHAR(255) NOT NULL;
+                password VARCHAR(255) NOT NULL
         ) ENGINE=INNODB;";
         $db->pdo->exec($sql);
     }
