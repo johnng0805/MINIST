@@ -2,6 +2,8 @@
 
 namespace app\core;
 
+use app\core\exception\NotFoundException;
+
 class Router
 {
     protected array $routes = [];
@@ -31,7 +33,7 @@ class Router
         $callback = $this->routes[$method][$path] ?? false;
 
         if ($callback === false) {
-            return "404";
+            throw new NotFoundException();
         }
 
         if (is_string($callback)) {
