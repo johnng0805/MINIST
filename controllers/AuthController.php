@@ -7,6 +7,7 @@ use app\core\Controller;
 use app\core\Request;
 use app\core\Response;
 use app\models\User;
+use app\models\UserLogin;
 
 class AuthController extends Controller
 {
@@ -14,13 +15,23 @@ class AuthController extends Controller
     {
         $this->setLayout('auth');
     }
+
     public function login(Request $request, Response $response)
     {
+        $userLogin = new UserLogin();
+
         if ($request->isPost()) {
-            return "Submitted login";
+            $userLogin->loadData($request->getBody());
+
+            if ($userLogin->validate() && $userLogin->login()) {
+                $response->redirect('/');
+                return;
+            }
         }
 
-        return $this->render('login');
+        return $this->render('login', [
+            'model' => $userLogin
+        ]);
     }
 
     public function register(Request $request, Response $response)
@@ -42,5 +53,11 @@ class AuthController extends Controller
         return $this->render('register', [
             'model' => $user
         ]);
+    }
+
+    public function logout(Request $request, Response $response)
+    {
+        Application::$app->logout();
+        $response->redirect('/');
     }
 }

@@ -24,6 +24,11 @@ class User extends DbModel
         return 'id';
     }
 
+    public function getDisplayName()
+    {
+        return $this->first_name;
+    }
+
     public function attributes(): array
     {
         return ['id', 'first_name', 'last_name', 'email', 'gender', 'password'];

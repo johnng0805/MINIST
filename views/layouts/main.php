@@ -1,4 +1,7 @@
 <?php
+
+use app\core\Application;
+
 ?>
 
 <!DOCTYPE html>
@@ -40,13 +43,22 @@
                 </li>
                 <li>
                     <div class="dropdown">
-                        <button class="dropdownBtn">
-                            User <i class="fa fa-caret-down"></i>
-                        </button>
-                        <div class="dropdown-links">
-                            <a href="/login">Login</a>
-                            <a href="/register">Register</a>
-                        </div>
+                        <?php if (Application::isGuest()) : ?>
+                            <button class="dropdownBtn">
+                                User <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-links">
+                                <a href="/login">Login</a>
+                                <a href="/register">Register</a>
+                            </div>
+                        <?php else : ?>
+                            <button class="dropdownBtn">
+                                <?php echo Application::$app->dbModel->getDisplayName(); ?> <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-links">
+                                <a href="/logout">Logout</a>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </li>
             </ul>
