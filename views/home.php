@@ -1,38 +1,3 @@
-<div>
-    <!--Navbar Begin-->
-    <nav>
-        <div class="logo">
-            <h4>Minist</h4>
-        </div>
-        <ul class="nav-links">
-            <li>
-                <a href="#">Home</a>
-            </li>
-            <li>
-                <a href="#">Cart</a>
-            </li>
-            <li>
-                <a href="#">Categories</a>
-            </li>
-            <li>
-                <div class="dropdown">
-                    <button class="dropdownBtn">
-                        User <i class="fa fa-caret-down"></i>
-                    </button>
-                    <div class="dropdown-links">
-                        <a href="#">Login</a>
-                        <a href="#">Register</a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-        <div class="burger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-        </div>
-    </nav>
-    <!--Navbar End-->
     <!--Hero Section Begin-->
     <div class="hero-image">
         <div class="container">
@@ -109,17 +74,11 @@
             </div>
         </div>
     </div>
-    <footer>
-        <div class="footer__bottom">
-            <h5>Designed by @johnng0805</h5>
-        </div>
-    </footer>
-</div>
-<script>
-    $(function() {
-        $(".burger").click(function() {
-            $(".nav-links").toggleClass("nav-active");
-            $(".burger").toggleClass("toggle");
+    <script>
+        $(function() {
+            $(".burger").click(function() {
+                $(".nav-links").toggleClass("nav-active");
+                $(".burger").toggleClass("toggle");
+            });
         });
-    });
-</script>
+    </script>

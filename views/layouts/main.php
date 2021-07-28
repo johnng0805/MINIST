@@ -1,4 +1,7 @@
 <?php
+
+use app\core\Application;
+
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +25,57 @@
 </head>
 
 <body>
-    {{content}}
+    <div>
+        <!--Navbar Begin-->
+        <nav>
+            <div class="logo">
+                <h4>Minist</h4>
+            </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="#">Home</a>
+                </li>
+                <li>
+                    <a href="#">Cart</a>
+                </li>
+                <li>
+                    <a href="#">Categories</a>
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <?php if (Application::isGuest()) : ?>
+                            <button class="dropdownBtn">
+                                User <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-links">
+                                <a href="/login">Login</a>
+                                <a href="/register">Register</a>
+                            </div>
+                        <?php else : ?>
+                            <button class="dropdownBtn">
+                                <?php echo Application::$app->dbModel->getDisplayName(); ?> <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-links">
+                                <a href="/logout">Logout</a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+        <!--Navbar End-->
+        {{content}}
+        <footer>
+            <div class="footer__bottom">
+                <h5>Designed by @johnng0805</h5>
+            </div>
+        </footer>
+    </div>
 </body>
 
 </html>

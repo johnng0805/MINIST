@@ -6,6 +6,11 @@ use app\core\Controller;
 
 class SiteController extends Controller
 {
+    public function __construct()
+    {
+        $this->setLayout('main');
+    }
+
     public function home()
     {
         $params = [

@@ -1,0 +1,116 @@
+body {
+    /* background: linear-gradient(120deg, rgb(28, 27, 27), rgb(26, 23, 23)); */
+    background: url(../Images/background.jpg);
+    background-size: cover;
+    background-color: rgba(255, 255, 255, 1);
+    background-blend-mode: luminosity;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.register__container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+}
+
+.register__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px black;
+}
+
+.register__title {
+    text-align: center;
+}
+
+.register__title a {
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    color: rgb(28, 27, 27);
+    font-size: 42px;
+}
+
+.register__title h4 {
+    margin: 1rem 0;
+    letter-spacing: 1px;
+}
+
+.register__input__container {
+    width: 100%;
+}
+
+.input__area {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 1.4rem 0 1.2rem 0;
+}
+
+.register__action__container {
+    margin-top: 1rem;
+}
+
+.register__action__forgot {
+    text-align: center;
+    font-size: 14px;
+    color: gray;
+}
+
+.register__action__forgot a {
+    text-decoration: none;
+    color: rgb(28, 27, 27);
+    font-weight: bold;
+}
+
+.register__action__submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.register__action__submit button {
+    padding: 0.5rem 4rem;
+    border-radius: 5px;
+    background: rgb(40, 40, 40);
+    border: none;
+    color: #f1f1f1;
+    letter-spacing: 1px;
+    transition: all 0.2s linear;
+}
+
+.register__action__submit button:active {
+    color: white;
+    background: rgb(60, 60, 60);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: black;
+    border: 2px solid;
+    box-shadow: none;
+}
+
+.form-control, .form-select {
+    border-color: gray;
+}
+
+.invalid__feedback {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 768px) {
+    .register__container {
+        width: 95%;
+    }
+}
