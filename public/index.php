@@ -29,4 +29,6 @@ $app->router->post('/login', [AuthController::class, 'login']);
 
 $app->router->get('/logout', [AuthController::class, 'logout']);
 
+$app->router->get('/about', [SiteController::class, 'test']);
+
 $app->run();
