@@ -4,6 +4,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
+use app\controllers\AdminController;
 use app\controllers\AuthController;
 use app\controllers\SiteController;
 use app\core\Application;
@@ -30,5 +31,10 @@ $app->router->post('/login', [AuthController::class, 'login']);
 $app->router->get('/logout', [AuthController::class, 'logout']);
 
 $app->router->get('/about', [SiteController::class, 'test']);
+
+/**
+ * Administrative routes
+ */
+$app->router->get('/admin', [AdminController::class, 'store']);
 
 $app->run();

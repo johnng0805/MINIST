@@ -29,7 +29,10 @@ class Application
     {
         self::$ROOT_DIR = $rootPath;
         self::$app = $this;
-        $this->userInfo = $config['user'];
+
+        if ($config['user']) {
+            $this->userInfo = $config['user'];
+        }
 
         $this->session = new Session();
 

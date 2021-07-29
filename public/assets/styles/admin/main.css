@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #f1f1f1;
+}
+
+.active {
+    background: rgb(50, 50, 50);
+    color: white;
+}
+
+.wrapper {
+    display: flex;
+    position: relative;
+}
+
+.sidebar {
+    position: fixed;
+    width: 220px;
+    height: 100%;
+    background: rgb(28, 27, 27);
+    padding: 30px 0;
+}
+
+.sidebar h2, h4 {
+    color: white;
+    text-align: center;
+    font-weight: lighter;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0;
+}
+
+.dash {
+    justify-content: center;
+    width: 100px;
+    border-top: 2px solid white;
+    margin: 10px auto;
+}
+
+.seperator {
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-top: 1px solid darkgray;
+}
+
+.sidebar ul {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.sidebar ul li {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    padding: 0 15px;
+}
+
+.sidebar ul li:hover {
+    background: rgb(50, 50, 50);
+}
+
+.sidebar ul li *, button{
+    color: rgb(150, 150, 150);
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-decoration: none;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+}
+
+.sidebar ul li a:hover {
+    color: white;
+}
+
+.sidebar ul li a:hover * {
+    color: white;
+}
+
+.sidebar ul li i {
+    width: 45px;
+    text-align: center;
+}
+
+.sidebar button {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.sidebar button i {
+    margin-right: 10px;
+}
+
+.sidebar button:hover {
+    background: rgb(50, 50, 50);
+    color: white;
+}
+
+.sidebar button:hover * {
+    color: white;
+}
