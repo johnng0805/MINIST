@@ -17,7 +17,7 @@
                                 <img src="./assets/Images/amoled_wallpaper.jpg" alt="Item" class="cards__item__img">
                             </figure>
                             <div class="cards__item__info">
-                                <h4 class="cards__item__title">Item Title</h4>
+                                <h4 class="cards__item__title"><a href="#">Item Title</a></h4>
                                 <p class="cards__item__price">0.000.000d</p>
                             </div>
                         </div>

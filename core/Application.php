@@ -58,6 +58,10 @@ class Application
         try {
             echo $this->router->resolve();
         } catch (\Exception $e) {
+            echo "<pre>";
+            var_dump($e);
+            echo "</pre>";
+            exit();
             $this->response->setStatusCode($e->getCode());
             $this->layout = 'error';
             echo $this->view->renderView('_error', [

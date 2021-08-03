@@ -61,4 +61,17 @@ class Request
 
         return $body;
     }
+
+    public function getFile()
+    {
+        $file = [];
+
+        if ($this->method() === 'post') {
+            foreach ($_FILES['product_image'] as $key => $value) {
+                $file[$key] = $value;
+            }
+        }
+
+        return $file;
+    }
 }

@@ -36,5 +36,9 @@ $app->router->get('/about', [SiteController::class, 'test']);
  * Administrative routes
  */
 $app->router->get('/admin', [AdminController::class, 'store']);
+$app->router->post('/admin/category', [AdminController::class, 'category']);
+$app->router->post('/admin/vendor', [AdminController::class, 'vendor']);
+$app->router->post('/admin/product', [AdminController::class, 'product']);
+$app->router->post('/admin/product/image', [AdminController::class, 'image']);
 
 $app->run();
