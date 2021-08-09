@@ -31,7 +31,6 @@ $app->router->post('/login', [AuthController::class, 'login']);
 $app->router->get('/logout', [AuthController::class, 'logout']);
 
 $app->router->get('/about', [SiteController::class, 'test']);
-
 /**
  * Administrative routes
  */
@@ -40,5 +39,9 @@ $app->router->post('/admin/category', [AdminController::class, 'category']);
 $app->router->post('/admin/vendor', [AdminController::class, 'vendor']);
 $app->router->post('/admin/product', [AdminController::class, 'product']);
 $app->router->post('/admin/product/image', [AdminController::class, 'image']);
+/**
+ *  Get route
+ */
+$app->router->get('/test', [SiteController::class, 'test']);
 
 $app->run();

@@ -73,12 +73,32 @@
                 <img src="./assets/Images/amoled_wallpaper.jpg" alt="Item" class="gallery__item__img">
             </div>
         </div>
+        <p class="test">
+
+        </p>
     </div>
     <script>
         $(function() {
             $(".burger").click(function() {
                 $(".nav-links").toggleClass("nav-active");
                 $(".burger").toggleClass("toggle");
+            });
+            $.get("/test", function(data) {
+                $.each(JSON.parse(data), function(key, value) {
+                    $(".cards__items").append(`
+                    <li class="cards__item">
+                        <div class="cards__item__link">
+                            <figure class="cards__item__figure">
+                                <img src="./assets/Images/amoled_wallpaper.jpg" alt="Item" class="cards__item__img">
+                            </figure>
+                            <div class="cards__item__info">
+                                <h4 class="cards__item__title"><a href="/product?id=${value.id}">${value.name}</a></h4>
+                                <p class="cards__item__price">${value.price}</p>
+                            </div>
+                        </div>
+                    </li>
+                    `);
+                });
             });
         });
     </script>

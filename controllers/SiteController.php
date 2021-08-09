@@ -4,6 +4,9 @@ namespace app\controllers;
 
 use app\core\Controller;
 use app\core\middlewares\AuthMiddleware;
+use app\core\Request;
+use app\core\Response;
+use app\models\Product;
 
 class SiteController extends Controller
 {
@@ -22,6 +25,8 @@ class SiteController extends Controller
 
     public function test()
     {
-        var_dump($_GET);
+        $product = new Product();
+        $result = $product->getAll();
+        echo json_encode($result);
     }
 }
