@@ -6,6 +6,7 @@ use app\core\Controller;
 use app\core\middlewares\AuthMiddleware;
 use app\core\Request;
 use app\core\Response;
+use app\models\PdImage;
 use app\models\Product;
 
 class SiteController extends Controller
@@ -28,5 +29,28 @@ class SiteController extends Controller
         $product = new Product();
         $result = $product->getAll();
         echo json_encode($result);
+    }
+
+    public function image()
+    {
+        $productImage = new PdImage();
+        $result = $productImage->getByID(["product_id" => $_GET["id"]]);
+        echo json_encode($result);
+    }
+
+    public function product()
+    {
+        $product = new Product();
+        $productImage = new PdImage();
+
+        $productInfo = $product->getById(["id" => $_GET["id"]]);
+        $productImages = $productImage->getByID(["product_id" => $_GET["id"]]);
+
+        $params = [
+            'product' => $productInfo,
+            'image' => $productImages
+        ];
+
+        return $this->render('product', $params);
     }
 }

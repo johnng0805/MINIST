@@ -73,9 +73,6 @@
                 <img src="./assets/Images/amoled_wallpaper.jpg" alt="Item" class="gallery__item__img">
             </div>
         </div>
-        <p class="test">
-
-        </p>
     </div>
     <script>
         $(function() {
@@ -85,19 +82,28 @@
             });
             $.get("/test", function(data) {
                 $.each(JSON.parse(data), function(key, value) {
-                    $(".cards__items").append(`
-                    <li class="cards__item">
-                        <div class="cards__item__link">
-                            <figure class="cards__item__figure">
-                                <img src="./assets/Images/amoled_wallpaper.jpg" alt="Item" class="cards__item__img">
-                            </figure>
-                            <div class="cards__item__info">
-                                <h4 class="cards__item__title"><a href="/product?id=${value.id}">${value.name}</a></h4>
-                                <p class="cards__item__price">${value.price}</p>
+                    var id = value.id;
+                    var name = value.name;
+                    var price = value.price;
+
+                    $.get(`/image?id=${id}`, function(data) {
+                        var images = JSON.parse(data);
+                        var firstImg = images[0].image;
+
+                        $(".cards__items").append(`
+                        <li class="cards__item">
+                            <div class="cards__item__link">
+                                <figure class="cards__item__figure">
+                                    <img src="./assets/upload/${firstImg}" alt="Item" class="cards__item__img">
+                                </figure>
+                                <div class="cards__item__info">
+                                    <h4 class="cards__item__title"><a href="/product?id=${id}">${name}</a></h4>
+                                    <p class="cards__item__price">$${price}</p>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    `);
+                        </li>
+                        `);
+                    });
                 });
             });
         });

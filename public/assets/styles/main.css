@@ -34,8 +34,11 @@ nav {
     border-bottom: 2px solid white;
 }
 
-.logo h4 {
+.logo a {
     margin: 0;
+    font-size: 1em;
+    color: #f1f1f1;
+    text-decoration: none;
 }
 
 .nav-links {
@@ -241,11 +244,16 @@ nav {
 }
 
 .cards__item__title {
-    color: rgb(28, 27, 27);
     /* font-size: 18px; */
     line-height: 24px;
     text-align: center;
     font-weight: bold;
+    text-decoration: none;
+}
+
+.cards__item__title a {
+    text-decoration: none;
+    color: rgb(28, 27, 27);
 }
 
 .cards__item__price {
