@@ -48,5 +48,9 @@ $app->router->get('/image', [SiteController::class, 'image']);
  *  Product Route
  */
 $app->router->get('/product', [SiteController::class, 'product']);
+/**
+ *  Cart Route
+ */
+$app->router->get('/cart', [SiteController::class, 'cart']);
 
 $app->run();

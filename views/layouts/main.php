@@ -23,6 +23,7 @@ use app\core\Application;
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./assets/styles/main.css">
     <link rel="stylesheet" href="./assets/styles/product.css">
+    <link rel="stylesheet" href="./assets/styles/cart.css">
 </head>
 
 <body>
@@ -34,10 +35,10 @@ use app\core\Application;
             </div>
             <ul class="nav-links">
                 <li>
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                 </li>
                 <li>
-                    <a href="#">Cart</a>
+                    <a href="/cart">Cart</a>
                 </li>
                 <li>
                     <a href="#">Categories</a>
@@ -70,7 +71,9 @@ use app\core\Application;
             </div>
         </nav>
         <!--Navbar End-->
-        {{content}}
+        <div class="page__content">
+            {{content}}
+        </div>
         <footer>
             <div class="footer__bottom">
                 <h5>Designed by @johnng0805</h5>

@@ -6,6 +6,14 @@ body * {
     height: auto;
 }
 
+.page__content {
+    min-height: 100vh;
+}
+
+.content__wrap {
+    height: 100%;
+}
+
 nav {
     display: flex;
     justify-content: space-around;
