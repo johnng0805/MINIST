@@ -39,6 +39,13 @@ class User extends DbModel
         return parent::save();
     }
 
+    public function getID()
+    {
+        $user = User::findOne(['email' => $this->email]);
+
+        return $user;
+    }
+
     public function rules(): array
     {
         return [

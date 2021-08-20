@@ -53,4 +53,6 @@ $app->router->get('/product', [SiteController::class, 'product']);
  */
 $app->router->get('/cart', [SiteController::class, 'cart']);
 
+$app->router->get('/getID', [SiteController::class, 'getID']);
+
 $app->run();

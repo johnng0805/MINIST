@@ -8,6 +8,7 @@ use app\core\Request;
 use app\core\Response;
 use app\models\PdImage;
 use app\models\Product;
+use app\models\User;
 
 class SiteController extends Controller
 {

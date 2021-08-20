@@ -4,6 +4,7 @@ namespace app\core;
 
 use app\core\database\Database;
 use app\core\models\DbModel;
+use app\models\Cart;
 
 class Application
 {
@@ -58,10 +59,6 @@ class Application
         try {
             echo $this->router->resolve();
         } catch (\Exception $e) {
-            echo "<pre>";
-            var_dump($e);
-            echo "</pre>";
-            exit();
             $this->response->setStatusCode($e->getCode());
             $this->layout = 'error';
             echo $this->view->renderView('_error', [
@@ -75,7 +72,12 @@ class Application
         $this->dbModel = $dbModel;
         $primaryKey = $dbModel->primaryKey();
         $primaryValue = $dbModel->{$primaryKey};
+
+        $cartID = $this->initializeCart($primaryValue);
+
         $this->session->set('userID', $primaryValue);
+        $this->session->set('cartID', $cartID);
+
         return true;
     }
 
@@ -83,6 +85,27 @@ class Application
     {
         $this->dbModel = null;
         $this->session->remove('userID');
+        $this->session->remove('cartID');
+    }
+
+    public function initializeCart($user_id)
+    {
+        $cart = new Cart();
+        $cart->loadData(['user_id' => $user_id]);
+
+        if (!$cart->isCreated($user_id)) {
+            if ($cart->validate() && $cart->save()) {
+                $cartKey = $cart->primaryKey();
+                $cartKeyValue = $cart->{$cartKey};
+
+                return $cartKeyValue;
+            }
+        } else {
+            $cartInfo = $cart->isCreated($user_id);
+            $cartKeyValue = $cartInfo->id;
+
+            return $cartKeyValue;
+        }
     }
 
     public static function isGuest()
