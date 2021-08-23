@@ -1,3 +1,9 @@
+<?php
+echo "<pre>";
+var_dump($cartItems[0]["id"]);
+echo "</pre>";
+exit();
+?>
 <div class="cart__container">
     <h4>Your Cart</h4>
     <div class="cart__table">
@@ -9,6 +15,7 @@
                 <th>Quantity</th>
                 <th>Total</th>
             </tr>
+
             <tr>
                 <td class="cart__item__remove">
                     <i class="far fa-trash-alt"></i>

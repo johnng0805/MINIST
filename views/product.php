@@ -38,8 +38,11 @@
             <p><?php echo $product[0]["description"]; ?></p>
         </div>
         <div class="item__btn__container">
-            <button class="addBtn">Add to Cart</button>
-            <button class="commentBtn">Write a review</button>
+            <form action="/cart" method="POST">
+                <input type="text" class="form-control" name="product_id" value="<?php echo $product[0]["id"] ?>" hidden>
+                <button class="addBtn" type="submit">Add to Cart</button>
+                <button class="commentBtn">Write a review</button>
+            </form>
         </div>
     </div>
 </div>

@@ -32,11 +32,32 @@ abstract class DbModel extends Model
         return true;
     }
 
+    public function update($value, $where)
+    {
+        $tablename = static::tableName();
+        $attrWhere = array_keys($where);
+        $attrValue = array_keys($value);
+
+        $sqlWhere = implode("AND ", array_map(fn ($attr) => "$attr = :$attr ", $attrWhere));
+        $sqlValue = implode(", ", array_map(fn ($attr) => "$attr = :$attr", $attrValue));
+
+        $statement = self::prepare("UPDATE $tablename SET $sqlValue WHERE $sqlWhere");
+
+        foreach ($value as $key => $item) {
+            $statement->bindValue(":$key", $item);
+        }
+        foreach ($where as $key => $item) {
+            $statement->bindValue(":$key", $item);
+        }
+
+        $statement->execute();
+    }
+
     public static function findOne($where)
     {
         $tableName = static::tableName();
         $attributes = array_keys($where);
-        $sql = implode("AND ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
+        $sql = implode("AND ", array_map(fn ($attr) => "$attr = :$attr ", $attributes));
 
         $statement = self::prepare("SELECT * FROM $tableName WHERE $sql");
         foreach ($where as $key => $item) {
@@ -60,9 +81,10 @@ abstract class DbModel extends Model
     {
         $tableName = static::tableName();
         $attributes = array_keys($_id);
-        $sql = implode("AND ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
+        $sql = implode("AND ", array_map(fn ($attr) => "$attr = :$attr ", $attributes));
 
         $statement = self::prepare("SELECT * FROM $tableName WHERE $sql");
+
         foreach ($_id as $key => $item) {
             $statement->bindValue(":$key", $item);
         }

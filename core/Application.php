@@ -95,8 +95,8 @@ class Application
 
         if (!$cart->isCreated($user_id)) {
             if ($cart->validate() && $cart->save()) {
-                $cartKey = $cart->primaryKey();
-                $cartKeyValue = $cart->{$cartKey};
+                $cartInfo = $cart->isCreated($user_id);
+                $cartKeyValue = $cartInfo->id;
 
                 return $cartKeyValue;
             }

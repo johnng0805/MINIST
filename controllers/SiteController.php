@@ -6,6 +6,7 @@ use app\core\Controller;
 use app\core\middlewares\AuthMiddleware;
 use app\core\Request;
 use app\core\Response;
+use app\models\CartItem;
 use app\models\PdImage;
 use app\models\Product;
 use app\models\User;
@@ -55,8 +56,41 @@ class SiteController extends Controller
         return $this->render('product', $params);
     }
 
-    public function cart()
+    public function cart(Request $request, Response $response)
     {
-        return $this->render('cart');
+        $cartItem = new CartItem();
+
+        if ($request->isPost()) {
+            $cartItem->loadData($request->getBody());
+            $cartItem->setCartID($_SESSION["cartID"]);
+
+            $sql = [
+                "cart_id" => $cartItem->cart_id,
+                "product_id" => $cartItem->product_id
+            ];
+
+            $itemAdded = $cartItem->findOne($sql);
+
+            if (!$itemAdded) {
+                $quantity = 1;
+                $cartItem->setQuantity($quantity);
+
+                if ($cartItem->validate() && $cartItem->save()) {
+                    $response->redirect("/cart");
+                }
+            } else {
+                if ($cartItem->quantity == 0) {
+                    $newQuantity = $itemAdded->quantity + 1;
+                    $cartItem->update(["quantity" => $newQuantity], $sql);
+                    $response->redirect("/cart");
+                }
+            }
+        } else {
+            $cartItems = $cartItem->getByID(["cart_id" => $_SESSION["cartID"]]);
+            $params = [
+                "cartItems" => $cartItems
+            ];
+            return $this->render("cart", $params);
+        }
     }
 }
