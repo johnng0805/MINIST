@@ -45,7 +45,7 @@ class SiteController extends Controller
         $product = new Product();
         $productImage = new PdImage();
 
-        $productInfo = $product->getById(["id" => $_GET["id"]]);
+        $productInfo = $product->getByID(["id" => $_GET["id"]]);
         $productImages = $productImage->getByID(["product_id" => $_GET["id"]]);
 
         $params = [
@@ -56,41 +56,25 @@ class SiteController extends Controller
         return $this->render('product', $params);
     }
 
-    public function cart(Request $request, Response $response)
+    public function getProductInfo()
     {
-        $cartItem = new CartItem();
+        $product = new Product();
 
-        if ($request->isPost()) {
-            $cartItem->loadData($request->getBody());
-            $cartItem->setCartID($_SESSION["cartID"]);
+        if ($_GET["id"]) {
+            $productInfo = $product->getByID(["id" => $_GET["id"]]);
 
-            $sql = [
-                "cart_id" => $cartItem->cart_id,
-                "product_id" => $cartItem->product_id
-            ];
+            return json_encode($productInfo);
+        }
+    }
 
-            $itemAdded = $cartItem->findOne($sql);
+    public function getProductImg()
+    {
+        $productImg = new PdImage();
 
-            if (!$itemAdded) {
-                $quantity = 1;
-                $cartItem->setQuantity($quantity);
+        if ($_GET["product_id"]) {
+            $productImgs = $productImg->getByID(["product_id" => $_GET["product_id"]]);
 
-                if ($cartItem->validate() && $cartItem->save()) {
-                    $response->redirect("/cart");
-                }
-            } else {
-                if ($cartItem->quantity == 0) {
-                    $newQuantity = $itemAdded->quantity + 1;
-                    $cartItem->update(["quantity" => $newQuantity], $sql);
-                    $response->redirect("/cart");
-                }
-            }
-        } else {
-            $cartItems = $cartItem->getByID(["cart_id" => $_SESSION["cartID"]]);
-            $params = [
-                "cartItems" => $cartItems
-            ];
-            return $this->render("cart", $params);
+            return json_encode($productImgs);
         }
     }
 }

@@ -6,6 +6,10 @@
     align-items: center;
 }
 
+i {
+    cursor: pointer;
+}
+
 .cart__container h4 {
     font-weight: bold;
     margin: 1em 0

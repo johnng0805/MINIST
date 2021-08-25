@@ -6,6 +6,7 @@ $dotenv->load();
 
 use app\controllers\AdminController;
 use app\controllers\AuthController;
+use app\controllers\CartController;
 use app\controllers\SiteController;
 use app\core\Application;
 
@@ -48,11 +49,15 @@ $app->router->get('/image', [SiteController::class, 'image']);
  *  Product Route
  */
 $app->router->get('/product', [SiteController::class, 'product']);
+$app->router->get('/productInfo', [SiteController::class, 'getProductInfo']);
+$app->router->get('/productImages', [SiteController::class, 'getProductImg']);
 /**
  *  Cart Route
  */
-$app->router->get('/cart', [SiteController::class, 'cart']);
-$app->router->post('/cart', [SiteController::class, 'cart']);
+$app->router->get('/cart', [CartController::class, 'cart']);
+$app->router->post('/cart', [CartController::class, 'addToCart']);
+$app->router->get('/cartItems', [CartController::class, 'getCartItems']);
+$app->router->delete('/cartItems', [CartController::class, 'removeCartItem']);
 
 $app->router->get('/getID', [SiteController::class, 'getID']);
 
