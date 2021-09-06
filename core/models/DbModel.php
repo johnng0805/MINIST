@@ -3,6 +3,7 @@
 namespace app\core\models;
 
 use app\core\Application;
+use PDOException;
 
 abstract class DbModel extends Model
 {
@@ -28,7 +29,12 @@ abstract class DbModel extends Model
             $statement->bindValue(":$attribute", $this->{$attribute});
         }
 
-        $statement->execute();
+        try {
+            $statement->execute();
+        } catch (PDOException $pdoEx) {
+            throw new PDOException();
+        }
+
         return true;
     }
 
@@ -81,7 +87,7 @@ abstract class DbModel extends Model
     {
         $tableName = static::tableName();
         $attributes = array_keys($_id);
-        $sql = implode("AND ", array_map(fn ($attr) => "$attr = :$attr ", $attributes));
+        $sql = implode(" OR ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
 
         $statement = self::prepare("SELECT * FROM $tableName WHERE $sql");
 

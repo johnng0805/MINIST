@@ -7,15 +7,19 @@ use app\core\Controller;
 use app\core\Request;
 use app\core\Response;
 use app\models\Category;
-use app\models\PdImage;
 use app\models\Product;
+use app\models\ProductImage;
 use app\models\Vendor;
 
+define("ADMIN_PATH", "/admin");
+define("ADMIN_LAYOUT", "admin");
+define("ADMIN_STORE", "store");
+define("IMG_UPLOAD", dirname(__DIR__) . "/public/assets/upload/");
 class AdminController extends Controller
 {
     public function __construct()
     {
-        $this->setLayout('admin');
+        $this->setLayout(ADMIN_LAYOUT);
     }
 
     public function dashboard()
@@ -25,7 +29,7 @@ class AdminController extends Controller
 
     public function store()
     {
-        return $this->render('store');
+        return $this->render(ADMIN_STORE);
     }
 
     public function category(Request $request, Response $response)
@@ -35,11 +39,11 @@ class AdminController extends Controller
         if ($request->isPost()) {
             $category->loadData($request->getBody());
 
-            if ($category->validate() && $category->save()) {
-                $response->redirect('/admin');
+            if ($category->validate()) {
+                $category->save();
             }
 
-            $response->redirect('/admin');
+            $response->redirect(ADMIN_PATH);
         }
     }
 
@@ -50,11 +54,11 @@ class AdminController extends Controller
         if ($request->isPost()) {
             $vendor->loadData($request->getBody());
 
-            if ($vendor->validate() && $vendor->save()) {
-                $response->redirect('/admin');
+            if ($vendor->validate()) {
+                $vendor->save();
             }
 
-            $response->redirect('/admin');
+            $response->redirect(ADMIN_PATH);
         }
     }
 
@@ -65,19 +69,17 @@ class AdminController extends Controller
         if ($request->isPost()) {
             $product->loadData($request->getBody());
 
-            if ($product->validate() && $product->save()) {
-                $response->redirect('/admin');
+            if ($product->validate()) {
+                $product->save();
             }
-            echo "<pre>";
-            var_dump($product);
-            echo "</pre>";
-            echo "error";
+
+            $response->redirect(ADMIN_PATH);
         }
     }
 
     public function image(Request $request, Response $response)
     {
-        $pdImage = new PdImage();
+        $pdImage = new ProductImage();
 
         if ($request->isPost()) {
             $pdImage->loadData($request->getBody());
@@ -89,17 +91,21 @@ class AdminController extends Controller
         if (!$uploadedFile['error']) {
             $pdImage->setImage($uploadedFile['fileName']);
 
-            if ($pdImage->validate() && $pdImage->save()) {
-                $response->redirect('/admin');
+            if ($pdImage->validate()) {
+                if ($pdImage->save()) {
+                    $response->redirect(ADMIN_PATH);
+                } else {
+                    echo "Error uploading to db";
+                }
             } else {
-                echo "Error uploading to db";
+                echo "Invalid image";
             }
         } else {
             echo $uploadedFile['error'];
         }
     }
 
-    public function uploadFile(array $file)
+    private function uploadFile(array $file)
     {
         $fileName = $file['name'];
         $fileTmpName = $file['tmp_name'];
@@ -111,32 +117,22 @@ class AdminController extends Controller
 
         $allowed = ['jpg', 'jpeg', 'png'];
 
-        if (in_array($fileActualExt, $allowed)) {
-            if ($fileError === 0) {
-                if ($fileSize < 5000000) {
-                    $fileRename = uniqid('', true) . "." . $fileActualExt;
-                    $fileDest = "./assets/upload/" . $fileRename;
-
-                    move_uploaded_file($fileTmpName, $fileDest);
-                    $path = $fileRename;
-
-                    return [
-                        'fileName' => $fileRename
-                    ];
-                } else {
-                    return [
-                        'error' => 'File too large.'
-                    ];
-                }
-            } else {
-                return [
-                    'error' => 'File error.'
-                ];
-            }
-        } else {
-            return [
-                'error' => 'Not image file.'
-            ];
+        if (!in_array($fileActualExt, $allowed)) {
+            return ["error" => "Not image file"];
         }
+
+        if ($fileError != 0) {
+            return ["error" => "File error"];
+        }
+
+        if ($fileSize >= 50000000) {
+            return ["error" => "File too large"];
+        }
+
+        $fileRename = uniqid('', true) . "." . $fileActualExt;
+        $fileDest = IMG_UPLOAD . $fileRename;
+
+        move_uploaded_file($fileTmpName, $fileDest);
+        return ["fileName" => $fileRename];
     }
 }

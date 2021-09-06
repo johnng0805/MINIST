@@ -15,7 +15,7 @@
                         <li class="cards__item">
                             <div class="cards__item__link">
                                 <figure class="cards__item__figure">
-                                    <img src="./assets/Images/amoled_wallpaper.jpg" alt="Item" class="cards__item__img">
+                                    <img src="http://localhost:3000/assets/images/amoled_wallpaper.jpg" alt="Item" class="cards__item__img">
                                 </figure>
                                 <div class="cards__item__info">
                                     <h4 class="cards__item__title"><a href="#">Item Title</a></h4>
@@ -26,7 +26,7 @@
                         <li class="cards__item">
                             <div class="cards__item__link">
                                 <figure class="cards__item__figure">
-                                    <img src="./assets/Images/hero-image.jpg" alt="Item" class="cards__item__img">
+                                    <img src="http://localhost:3000/assets/images/hero-image.jpg" alt="Item" class="cards__item__img">
                                 </figure>
                                 <div class="cards__item__info">
                                     <h4 class="cards__item__title">Item Title</h4>
@@ -37,7 +37,7 @@
                         <li class="cards__item">
                             <div class="cards__item__link">
                                 <figure class="cards__item__figure">
-                                    <img src="./assets/Images/amoled_wallpaper.jpg" alt="Item" class="cards__item__img">
+                                    <img src="http://localhost:3000/assets/images/amoled_wallpaper.jpg" alt="Item" class="cards__item__img">
                                 </figure>
                                 <div class="cards__item__info">
                                     <h4 class="cards__item__title">Item Title</h4>
@@ -48,7 +48,7 @@
                         <li class="cards__item">
                             <div class="cards__item__link">
                                 <figure class="cards__item__figure">
-                                    <img src="./assets/Images/hero-image.jpg" alt="Item" class="cards__item__img">
+                                    <img src="http://localhost:3000/assets/images/hero-image.jpg" alt="Item" class="cards__item__img">
                                 </figure>
                                 <div class="cards__item__info">
                                     <h4 class="cards__item__title">Item Title</h4>
@@ -68,10 +68,10 @@
             <!--Featured Items End-->
             <div class="gallery__container">
                 <div class="gallery__item">
-                    <img src="./assets/Images/amoled_wallpaper.jpg" alt="Item" class="gallery__item__img">
+                    <img src="http://localhost:3000/assets/images/amoled_wallpaper.jpg" alt="Item" class="gallery__item__img">
                 </div>
                 <div class="gallery__item">
-                    <img src="./assets/Images/amoled_wallpaper.jpg" alt="Item" class="gallery__item__img">
+                    <img src="http://localhost:3000/assets/images/amoled_wallpaper.jpg" alt="Item" class="gallery__item__img">
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
                 $(".nav-links").toggleClass("nav-active");
                 $(".burger").toggleClass("toggle");
             });
-            $.get("/test", function(data) {
+            $.get("/products", function(data) {
                 $.each(JSON.parse(data), function(key, value) {
                     var id = value.id;
                     var name = value.name;
@@ -96,7 +96,7 @@
                         <li class="cards__item">
                             <div class="cards__item__link">
                                 <figure class="cards__item__figure">
-                                    <img src="./assets/upload/${firstImg}" alt="Item" class="cards__item__img">
+                                    <img src="http://localhost:3000/assets/upload/${firstImg}" alt="Item" class="cards__item__img">
                                 </figure>
                                 <div class="cards__item__info">
                                     <h4 class="cards__item__title"><a href="/product?id=${id}">${name}</a></h4>
@@ -105,7 +105,7 @@
                             </div>
                         </li>
                         `);
-                    });
+                    })
                 });
             });
         });

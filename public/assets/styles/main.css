@@ -132,7 +132,7 @@ nav {
 .hero-image {
     position: relative;
     height: 400px;
-    background: url(../Images//hero-image.jpg) no-repeat center;
+    background: url(http://localhost:3000/assets/images/hero-image.jpg) no-repeat center;
     background-size: cover;
     overflow: hidden;
 }
@@ -278,7 +278,7 @@ nav {
 
 .featured__item__container {
     position: relative;
-    background: url(../Images/hero-image.jpg) no-repeat center;
+    background: url(http://localhost:3000/assets/images/hero-image.jpg) no-repeat center;
     background-size: cover;
     display: flex;
     flex-flow: column;

@@ -4,6 +4,7 @@
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#item__img__slider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#item__img__slider" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#item__img__slider" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
                 <?php
@@ -62,15 +63,10 @@
                 var name = value.name;
                 var price = value.price;
 
-                $.get(`/image?id=${id}`, function(data) {
-                    var images = JSON.parse(data);
-                    var firstImage = images[0].image;
-
-                    $(".related__items").append(`
+                $(".related__items").append(`
                     <li class="related__item">
                         <div class="related__item__link">
                         <figure class="related__item__figure">
-                            <img src="./assets/upload/${firstImage}" alt="Item" class="related__item__img">
                         </figure>
                         <div class="related__item__info">
                             <a href="/product?id=${id}">${name}</a>
@@ -78,8 +74,18 @@
                         </div>
                         </div>
                     </li>
-                    `)
-                })
+                `)
+
+                $.get(`/image?id=${id}`, function(data) {
+                    var images = JSON.parse(data);
+                    var firstImage = images[0].image;
+
+                    if (firstImage) {
+                        $(".related__item__figure").append(`
+                        <img src="./assets/upload/${firstImage}" alt="Item" class="related__item__img">
+                        `);
+                    }
+                });
             })
         })
     })

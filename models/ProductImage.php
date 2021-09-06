@@ -4,7 +4,7 @@ namespace app\models;
 
 use app\core\models\DbModel;
 
-class PdImage extends DbModel
+class ProductImage extends DbModel
 {
     public string $product_id = '';
     public string $image = '';
@@ -35,5 +35,10 @@ class PdImage extends DbModel
     public function setImage(string $path)
     {
         $this->image = $path;
+    }
+
+    public static function productIDKey()
+    {
+        return "product_id";
     }
 }

@@ -43,7 +43,7 @@ $app->router->post('/admin/product/image', [AdminController::class, 'image']);
 /**
  *  Get route
  */
-$app->router->get('/test', [SiteController::class, 'test']);
+$app->router->get('/products', [SiteController::class, 'getAllProducts']);
 $app->router->get('/image', [SiteController::class, 'image']);
 /**
  *  Product Route
