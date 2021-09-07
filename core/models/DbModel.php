@@ -44,7 +44,7 @@ abstract class DbModel extends Model
         $attrWhere = array_keys($where);
         $attrValue = array_keys($value);
 
-        $sqlWhere = implode("AND ", array_map(fn ($attr) => "$attr = :$attr ", $attrWhere));
+        $sqlWhere = implode(" AND ", array_map(fn ($attr) => "$attr = :_$attr", $attrWhere));
         $sqlValue = implode(", ", array_map(fn ($attr) => "$attr = :$attr", $attrValue));
 
         $statement = self::prepare("UPDATE $tablename SET $sqlValue WHERE $sqlWhere");
@@ -53,7 +53,7 @@ abstract class DbModel extends Model
             $statement->bindValue(":$key", $item);
         }
         foreach ($where as $key => $item) {
-            $statement->bindValue(":$key", $item);
+            $statement->bindValue(":_$key", $item);
         }
 
         $statement->execute();
@@ -63,7 +63,7 @@ abstract class DbModel extends Model
     {
         $tableName = static::tableName();
         $attributes = array_keys($where);
-        $sql = implode("AND ", array_map(fn ($attr) => "$attr = :$attr ", $attributes));
+        $sql = implode(" AND ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
 
         $statement = self::prepare("SELECT * FROM $tableName WHERE $sql");
         foreach ($where as $key => $item) {
@@ -103,7 +103,7 @@ abstract class DbModel extends Model
     {
         $tableName = static::tableName();
         $attributes = array_keys($_id);
-        $sql = implode("AND ", array_map(fn ($attr) => "$attr = :$attr ", $attributes));
+        $sql = implode(" AND ", array_map(fn ($attr) => "$attr = :$attr", $attributes));
 
         $statement = self::prepare("DELETE FROM $tableName WHERE $sql");
 

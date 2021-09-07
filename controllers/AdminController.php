@@ -111,13 +111,14 @@ class AdminController extends Controller
         $fileTmpName = $file['tmp_name'];
         $fileError = $file['error'];
         $fileSize = $file['size'];
+        $fileType = mime_content_type($fileTmpName);
 
         $fileExt = explode('.', $fileName);
         $fileActualExt = strtolower(end($fileExt));
 
-        $allowed = ['jpg', 'jpeg', 'png'];
+        $allowed = ['image/jpg', 'image/jpeg', 'image/png'];
 
-        if (!in_array($fileActualExt, $allowed)) {
+        if (!in_array($fileType, $allowed)) {
             return ["error" => "Not image file"];
         }
 

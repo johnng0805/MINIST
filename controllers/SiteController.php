@@ -87,7 +87,7 @@ class SiteController extends Controller
         }
     }
 
-    public function getProductImg(Response $response)
+    public function getProductImg()
     {
         $productImg = new ProductImage();
 

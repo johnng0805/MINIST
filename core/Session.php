@@ -19,6 +19,17 @@ class Session
         return $_SESSION[$key] ?? false;
     }
 
+    public function getInt($key): int
+    {
+        $value = $_SESSION[$key];
+
+        if (is_object($value)) {
+            return 0;
+        }
+
+        return intval($value);
+    }
+
     public function remove($key)
     {
         unset($_SESSION[$key]);

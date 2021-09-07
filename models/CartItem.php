@@ -20,6 +20,16 @@ class CartItem extends DbModel
         return "id";
     }
 
+    public static function cartIDKey(): string
+    {
+        return "cart_id";
+    }
+
+    public static function productIDKey(): string
+    {
+        return "product_id";
+    }
+
     public function attributes(): array
     {
         return ["cart_id", "product_id", "quantity"];

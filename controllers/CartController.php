@@ -2,10 +2,15 @@
 
 namespace app\controllers;
 
+use app\core\Application;
 use app\core\Controller;
 use app\core\Request;
 use app\core\Response;
+use app\core\Session;
 use app\models\CartItem;
+
+define("CART_PATH", "/cart");
+define("CART_VIEW", "cart");
 
 class CartController extends Controller
 {
@@ -17,14 +22,15 @@ class CartController extends Controller
     public function addToCart(Request $request, Response $response)
     {
         $cartItem = new CartItem();
+        $cartID = Application::$app->session->getInt("cartID");
 
         if ($request->isPost()) {
             $cartItem->loadData($request->getBody());
-            $cartItem->setCartID($_SESSION["cartID"]);
+            $cartItem->setCartID($cartID);
 
             $sql = [
-                "cart_id" => $cartItem->cart_id,
-                "product_id" => $cartItem->product_id
+                $cartItem::cartIDKey() => $cartItem->cart_id,
+                $cartItem::productIDKey() => $cartItem->product_id
             ];
 
             $itemAdded = $cartItem->findOne($sql);
@@ -33,33 +39,43 @@ class CartController extends Controller
                 $quantity = 1;
                 $cartItem->setQuantity($quantity);
 
-                if ($cartItem->validate() && $cartItem->save()) {
-                    $response->redirect("/cart");
+                if ($cartItem->validate()) {
+                    if ($cartItem->save()) {
+                        $response->redirect(CART_PATH);
+                    } else {
+                        return http_response_code(500);
+                    }
+                } else {
+                    return http_response_code(400);
                 }
             } else {
                 if ($cartItem->quantity == 0) {
                     $newQuantity = $itemAdded->quantity + 1;
                     $cartItem->update(["quantity" => $newQuantity], $sql);
-                    $response->redirect("/cart");
+                    $response->redirect(CART_PATH);
                 }
             }
         } else {
-            $cartItems = $cartItem->getByID(["cart_id" => $_SESSION["cartID"]]);
+            $cartItems = $cartItem->getByID([$cartItem::cartIDKey() => $cartID]);
             $params = [
                 "cartItems" => $cartItems
             ];
-            return $this->render("cart", $params);
+            return $this->render(CART_VIEW, $params);
         }
     }
 
-    public function getCartItems(Request $request, Response $response)
+    public function getCartItems()
     {
         $cartItem = new CartItem();
+        $cartID = Application::$app->session->getInt("cartID");
 
-        $items = $cartItem->getByID(["cart_id" => $_SESSION["cartID"]]);
-        $items = json_encode($items);
+        $items = $cartItem->getByID([$cartItem::cartIDKey() => $cartID]);
 
-        return $items;
+        if ($items) {
+            return json_encode($items);
+        } else {
+            return http_response_code(500);
+        }
     }
 
     public function removeCartItem(Request $request)
