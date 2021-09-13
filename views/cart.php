@@ -58,7 +58,6 @@
 <script>
     $(function() {
         $.get("/cartItems", function(data) {
-            console.log(typeof(data));
             var itemsArray = JSON.parse(data);
             $.each(itemsArray, function(key, value) {
                 var cart_item_id = value.id;

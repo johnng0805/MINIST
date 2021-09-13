@@ -69,7 +69,7 @@ class CartController extends Controller
         $cartItem = new CartItem();
         $cartID = Application::$app->session->getInt("cartID");
 
-        $items = $cartItem->getByID([$cartItem::cartIDKey() => $cartID]);
+        $items = $cartItem->getByID([$cartItem::cartIDKey() => $cartID, "id" => $cartID]);
 
         if ($items) {
             return json_encode($items);

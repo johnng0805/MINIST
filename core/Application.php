@@ -73,10 +73,14 @@ class Application
         $primaryKey = $dbModel->primaryKey();
         $primaryValue = $dbModel->{$primaryKey};
 
-        $cartID = $this->initializeCart($primaryValue);
-
         $this->session->set('userID', $primaryValue);
-        $this->session->set('cartID', $cartID);
+
+        $cartID = $this->initializeCart($primaryValue);
+        if ($cartID) {
+            $this->session->set('cartID', $cartID);
+        } else {
+            return false;
+        }
 
         return true;
     }
@@ -84,8 +88,7 @@ class Application
     public function logout()
     {
         $this->dbModel = null;
-        $this->session->remove('userID');
-        $this->session->remove('cartID');
+        $this->session->removeAll();
     }
 
     public function initializeCart($user_id)
@@ -93,19 +96,19 @@ class Application
         $cart = new Cart();
         $cart->loadData(['user_id' => $user_id]);
 
-        if (!$cart->isCreated($user_id)) {
-            if ($cart->validate() && $cart->save()) {
-                $cartInfo = $cart->isCreated($user_id);
-                $cartKeyValue = $cartInfo->id;
+        $cartInfo = $cart->isCreated($user_id);
 
-                return $cartKeyValue;
+        if (!$cartInfo) {
+            if ($cart->validate()) {
+                if ($cart->save()) {
+                    $cartInfo = $cart->getInfo($user_id);
+                }
             }
         } else {
-            $cartInfo = $cart->isCreated($user_id);
-            $cartKeyValue = $cartInfo->id;
-
-            return $cartKeyValue;
+            $cartInfo = $cart->getInfo($user_id);
         }
+
+        return ($cartInfo->id) ?? false;
     }
 
     public static function isGuest()

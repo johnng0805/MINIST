@@ -34,10 +34,11 @@ class Cart extends DbModel
     {
         $cartInfo = Cart::findOne(['user_id' => $user_id]);
 
-        if ($cartInfo) {
-            return $cartInfo;
-        } else {
-            return false;
-        }
+        return ($cartInfo) ? true : false;
+    }
+
+    public function getInfo($user_id)
+    {
+        return Cart::findOne(["user_id" => $user_id]);
     }
 }

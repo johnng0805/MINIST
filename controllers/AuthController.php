@@ -23,9 +23,12 @@ class AuthController extends Controller
         if ($request->isPost()) {
             $userLogin->loadData($request->getBody());
 
-            if ($userLogin->validate() && $userLogin->login()) {
-                $response->redirect('/');
-                return;
+            if ($userLogin->validate()) {
+                if ($userLogin->login()) {
+                    $response->redirect('/');
+                } else {
+                    return http_response_code(500);
+                }
             }
         }
 
@@ -41,8 +44,12 @@ class AuthController extends Controller
         if ($request->isPost()) {
             $user->loadData($request->getBody());
 
-            if ($user->validate() && $user->save()) {
-                Application::$app->response->redirect('/login');
+            if ($user->validate()) {
+                if ($user->save()) {
+                    Application::$app->response->redirect('/login');
+                } else {
+                    return http_response_code(500);
+                }
             }
 
             return $this->render('register', [
