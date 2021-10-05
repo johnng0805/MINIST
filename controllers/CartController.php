@@ -8,15 +8,20 @@ use app\core\Request;
 use app\core\Response;
 use app\core\Session;
 use app\models\CartItem;
+use PDOException;
 
 define("CART_PATH", "/cart");
 define("CART_VIEW", "cart");
 
 class CartController extends Controller
 {
-    public function cart()
+    public function cart(Request $request, Response $response)
     {
-        return $this->render("cart");
+        if (empty($_GET)) {
+            return $this->render("cart");
+        } else if ($_GET["action"] === "checkout") {
+            return json_encode(json_encode($_GET));
+        }
     }
 
     public function addToCart(Request $request, Response $response)
@@ -69,13 +74,13 @@ class CartController extends Controller
         $cartItem = new CartItem();
         $cartID = Application::$app->session->getInt("cartID");
 
-        $items = $cartItem->getByID([$cartItem::cartIDKey() => $cartID, "id" => $cartID]);
-
-        if ($items) {
-            return json_encode($items);
-        } else {
+        try {
+            $items = $cartItem->getByID([$cartItem::cartIDKey() => $cartID, "id" => $cartID]);
+        } catch (PDOException $e) {
             return http_response_code(500);
         }
+
+        return json_encode($items);
     }
 
     public function removeCartItem(Request $request)
