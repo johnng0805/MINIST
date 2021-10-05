@@ -76,3 +76,34 @@ td {
 th {
     border: 2px solid whitesmoke;
 }
+
+.summary__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+}
+
+.total__price {
+    font-size: 18px;
+}
+
+.total__price span {
+    font-weight: bold;
+}
+
+.summary__container a {
+    text-decoration: none;
+    color: white;
+    background-color: #1b1b1b;
+    padding: 0.5em;
+    border: 2px solid #1b1b1b;
+    border-radius: 4px;
+    transition: all 0.2s linear;
+}
+
+.summary__container a:hover {
+    background-color: white;
+    color: #1b1b1b;
+    font-weight: bold;
+}

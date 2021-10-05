@@ -9,50 +9,13 @@
                 <th>Quantity</th>
                 <th>Total</th>
             </tr>
-
-            <tr>
-                <td class="cart__item__remove">
-                    <i class="far fa-trash-alt"></i>
-                </td>
-                <td>
-                    <img src="./assets/Images/background.jpg" alt="">
-                    Product 1
-                </td>
-                <td>000.000.000</td>
-                <td class="cart__item__quantity">
-                    <input type="number" value="1" step="1" min="1" max="100" class="input-group">
-                </td>
-                <td class="cart__item__total">000.000.000</td>
-            </tr>
-            <tr>
-                <td class="cart__item__remove">
-                    <i class="far fa-trash-alt"></i>
-                </td>
-                <td>
-                    <img src="./assets/Images/background.jpg" alt="">
-                    Product 1
-                </td>
-                <td>000.000.000</td>
-                <td class="cart__item__quantity">
-                    <input type="number" value="1" step="1" min="1" max="100" class="input-group">
-                </td>
-                <td class="cart__item__total">000.000.000</td>
-            </tr>
-            <tr>
-                <td class="cart__item__remove">
-                    <i class="far fa-trash-alt"></i>
-                </td>
-                <td class="cart__item__name">
-                    <img src="./assets/Images/background.jpg" alt="">
-                    Product 1
-                </td>
-                <td>000.000.000</td>
-                <td class="cart__item__quantity">
-                    <input type="number" value="1" step="1" min="1" max="100" class="input-group">
-                </td>
-                <td class="cart__item__total">000.000.000</td>
-            </tr>
         </table>
+        <div class="summary__container">
+            <div class="total__price">
+                Total price: <span>0</span>
+            </div>
+            <a href="#">Checkout</a>
+        </div>
     </div>
 </div>
 <script>
@@ -95,6 +58,9 @@
                             </tr>
                             `);
                         });
+
+                        var total_price = parseInt($(".total__price span").html(), 10);
+                        $(".total__price span").html(String(total_price + product_total));
                     });
                 });
             });
