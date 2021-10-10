@@ -17,10 +17,10 @@ class CartController extends Controller
 {
     public function cart(Request $request, Response $response)
     {
-        if (empty($_GET)) {
+        if ($request->isGet()) {
             return $this->render("cart");
-        } else if ($_GET["action"] === "checkout") {
-            return json_encode(json_encode($_GET));
+        } else {
+            return http_response_code(405);
         }
     }
 

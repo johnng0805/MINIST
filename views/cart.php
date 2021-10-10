@@ -14,7 +14,7 @@
             <div class="total__price">
                 Total price: <span>0</span>
             </div>
-            <a href="#" class="checkoutBtn">Checkout</a>
+            <button class="checkoutBtn">Checkout</button>
         </div>
     </div>
 </div>
@@ -79,24 +79,29 @@
         });
 
         $(document).on("click", ".checkoutBtn", function() {
-            var productIDs = {};
+            var productIDs = [];
 
             $("#cartTable tr").each(function(i, element) {
                 if (i != 0) {
                     var idTD = $(this).find(".cart__item__id");
                     var id = parseInt(idTD.html(), 10);
-                    productIDs["item_" + i] = id;
+                    productIDs.push(id);
                 }
             });
 
+            var jsonData = JSON.stringify(productIDs);
             $.ajax({
-                method: "GET",
-                url: `/cart?action=checkout`,
-                data: JSON.stringify(productIDs),
+                method: "POST",
+                url: `/cart/checkout`,
+                data: {
+                    data: jsonData
+                },
                 dataType: "json",
-                success: function(response) {
-                    console.log(response);
-                }
+                // success: function(response) {
+                //     location.href = "/cart/checkout";
+                // }
+            }).done(function() {
+                location.replace("/cart/checkout");
             });
         });
     });

@@ -7,6 +7,7 @@ $dotenv->load();
 use app\controllers\AdminController;
 use app\controllers\AuthController;
 use app\controllers\CartController;
+use app\controllers\PaymentController;
 use app\controllers\SiteController;
 use app\core\Application;
 
@@ -58,6 +59,11 @@ $app->router->get('/cart', [CartController::class, 'cart']);
 $app->router->post('/cart', [CartController::class, 'addToCart']);
 $app->router->get('/cartItems', [CartController::class, 'getCartItems']);
 $app->router->delete('/cartItems', [CartController::class, 'removeCartItem']);
+/**
+ *  Payment Route
+ */
+$app->router->get('/cart/checkout', [PaymentController::class, 'checkout']);
+$app->router->post('/cart/checkout', [PaymentController::class, 'checkout']);
 
 $app->router->get('/getID', [SiteController::class, 'getID']);
 

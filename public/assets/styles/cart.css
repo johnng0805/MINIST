@@ -92,7 +92,7 @@ th {
     font-weight: bold;
 }
 
-.summary__container a {
+.summary__container button {
     text-decoration: none;
     color: white;
     background-color: #1b1b1b;
@@ -102,7 +102,7 @@ th {
     transition: all 0.2s linear;
 }
 
-.summary__container a:hover {
+.summary__container button:hover {
     background-color: white;
     color: #1b1b1b;
     font-weight: bold;

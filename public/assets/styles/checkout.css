@@ -1,0 +1,22 @@
+.checkout__container {
+    width: 65vw;
+    display: flex;
+    margin: auto;
+    padding: 2em;
+}
+
+.checkout__wrapper {
+    width: 100%;
+    padding: 1em;
+    border: 1px solid gray;
+    border-radius: 6px;
+}
+
+.left__wrapper {
+    width: 60%;
+
+}
+
+table {
+    width: 100%;
+}
