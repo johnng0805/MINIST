@@ -10,13 +10,55 @@
     padding: 1em;
     border: 1px solid gray;
     border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.left__wrapper {
-    width: 60%;
-
-}
-
-table {
+.checkout__item__table {
     width: 100%;
+    margin-top: 1em;
+}
+
+.checkout__item__table table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.checkout__item__table table tbody td {
+    padding: 0.5em;
+}
+
+.checkout__item__table table tbody td:first-child {
+    width: 400px;
+}
+
+.checkout__wrapper h4 {
+    margin-top: 1em;
+}
+
+.checkout__billing__container {
+    width: 90%;
+    margin-top: 1.5em;
+}
+
+.payment__title {
+    width: 100%;
+    text-align: center;
+}
+
+.confirmBtn {
+    background-color: #1b1b1b;
+    color: white;
+    border: 2px solid #1b1b1b;
+    padding: 0.5em 1em;
+    border-radius: 6px;
+    margin-top: 1.5em;
+    transition: all 0.2s linear;
+}
+
+.confirmBtn:hover {
+    background-color: white;
+    color: #1b1b1b;
+    font-weight: bold;
 }
