@@ -21,7 +21,12 @@ use app\core\Application;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./assets/styles/main.css">
+    <link rel="icon" href="/assets/images/favicon.ico">
+    <link rel="stylesheet" href="/assets/styles/main.css">
+    <link rel="stylesheet" href="/assets/styles/product.css">
+    <link rel="stylesheet" href="/assets/styles/cart.css">
+    <link rel="stylesheet" href="/assets/styles/checkout.css">
+    <title>MINIST</title>
 </head>
 
 <body>
@@ -29,14 +34,14 @@ use app\core\Application;
         <!--Navbar Begin-->
         <nav>
             <div class="logo">
-                <h4>Minist</h4>
+                <a href="/">Minist</a>
             </div>
             <ul class="nav-links">
                 <li>
-                    <a href="#">Home</a>
+                    <a href="/">Home</a>
                 </li>
                 <li>
-                    <a href="#">Cart</a>
+                    <a href="/cart">Cart</a>
                 </li>
                 <li>
                     <a href="#">Categories</a>
@@ -69,7 +74,9 @@ use app\core\Application;
             </div>
         </nav>
         <!--Navbar End-->
-        {{content}}
+        <div class="page__content">
+            {{content}}
+        </div>
         <footer>
             <div class="footer__bottom">
                 <h5>Designed by @johnng0805</h5>

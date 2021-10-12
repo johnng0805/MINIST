@@ -26,11 +26,26 @@ class Router
         $this->routes['post'][$path] = $callback;
     }
 
+    public function put($path, $callback)
+    {
+        $this->routes['put'][$path] = $callback;
+    }
+
+    public function delete($path, $callback)
+    {
+        $this->routes['delete'][$path] = $callback;
+    }
+
     public function resolve()
     {
         $path = $this->request->getPath();
         $method = $this->request->method();
         $callback = $this->routes[$method][$path] ?? false;
+
+        // echo "<pre>";
+        // var_dump($this->request->getParam());
+        // echo "</pre>";
+        // exit();
 
         if ($callback === false) {
             throw new NotFoundException();
@@ -48,6 +63,10 @@ class Router
             Application::$app->controller = $controller;
             $controller->action = $callback[1];
             $callback[0] = $controller;
+
+            foreach ($controller->getMiddlewares() as $middleware) {
+                $middleware->execute();
+            }
         }
 
         return call_user_func($callback, $this->request, $this->response);

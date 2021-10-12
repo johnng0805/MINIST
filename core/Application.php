@@ -4,6 +4,7 @@ namespace app\core;
 
 use app\core\database\Database;
 use app\core\models\DbModel;
+use app\models\Cart;
 
 class Application
 {
@@ -29,7 +30,10 @@ class Application
     {
         self::$ROOT_DIR = $rootPath;
         self::$app = $this;
-        $this->userInfo = $config['user'];
+
+        if ($config['user']) {
+            $this->userInfo = $config['user'];
+        }
 
         $this->session = new Session();
 
@@ -68,14 +72,43 @@ class Application
         $this->dbModel = $dbModel;
         $primaryKey = $dbModel->primaryKey();
         $primaryValue = $dbModel->{$primaryKey};
+
         $this->session->set('userID', $primaryValue);
+
+        $cartID = $this->initializeCart($primaryValue);
+        if ($cartID) {
+            $this->session->set('cartID', $cartID);
+        } else {
+            return false;
+        }
+
         return true;
     }
 
     public function logout()
     {
         $this->dbModel = null;
-        $this->session->remove('userID');
+        $this->session->removeAll();
+    }
+
+    public function initializeCart($user_id)
+    {
+        $cart = new Cart();
+        $cart->loadData(['user_id' => $user_id]);
+
+        $cartInfo = $cart->isCreated($user_id);
+
+        if (!$cartInfo) {
+            if ($cart->validate()) {
+                if ($cart->save()) {
+                    $cartInfo = $cart->getInfo($user_id);
+                }
+            }
+        } else {
+            $cartInfo = $cart->getInfo($user_id);
+        }
+
+        return ($cartInfo->id) ?? false;
     }
 
     public static function isGuest()

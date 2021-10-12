@@ -1,3 +1,5 @@
 vendor
 .env
+.vscode
 composer.lock
+public/assets/upload

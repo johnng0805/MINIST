@@ -6,7 +6,6 @@ use app\core\models\DbModel;
 
 class User extends DbModel
 {
-    public int $id = 0;
     public string $first_name = '';
     public string $last_name = '';
     public string $email = '';
@@ -31,14 +30,20 @@ class User extends DbModel
 
     public function attributes(): array
     {
-        return ['id', 'first_name', 'last_name', 'email', 'gender', 'password'];
+        return ['first_name', 'last_name', 'email', 'gender', 'password'];
     }
 
     public function save()
     {
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-        $this->id = hexdec(uniqid());
         return parent::save();
+    }
+
+    public function getID()
+    {
+        $user = User::findOne(['email' => $this->email]);
+
+        return $user;
     }
 
     public function rules(): array

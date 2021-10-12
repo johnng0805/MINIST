@@ -16,6 +16,18 @@ class Request
         return substr($path, 0, $position);
     }
 
+    public function getParam()
+    {
+        $path = $_SERVER['REQUEST_URI'] ?? '/';
+        $position = strpos($path, '?');
+
+        if ($position === false) {
+            return $path;
+        }
+
+        return substr($path, $position, strlen($path));
+    }
+
     public function method()
     {
         return strtolower($_SERVER['REQUEST_METHOD']);
@@ -29,6 +41,16 @@ class Request
     public function isPost()
     {
         return $this->method() === 'post';
+    }
+
+    public function isPut()
+    {
+        return $this->method() === 'put';
+    }
+
+    public function isDelete()
+    {
+        return $this->method() === 'delete';
     }
 
     public function getBody()
@@ -48,5 +70,18 @@ class Request
         }
 
         return $body;
+    }
+
+    public function getFile()
+    {
+        $file = [];
+
+        if ($this->method() === 'post') {
+            foreach ($_FILES['product_image'] as $key => $value) {
+                $file[$key] = $value;
+            }
+        }
+
+        return $file;
     }
 }
